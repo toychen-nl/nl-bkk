@@ -3,339 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nextlink 員工旅遊 2026 — 曼谷芭達雅</title>
-  <style>
-    /* ── Reset & Base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --gold:   #f5c842;
-      --teal:   #00b4d8;
-      --deep:   #03045e;
-      --ocean:  #0077b6;
-      --sand:   #fff8ee;
-      --card-bg:#ffffff;
-      --text:   #1a1a2e;
-      --muted:  #5a6a7a;
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
-      background: var(--sand);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    /* ── Nav ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0.8rem 2rem;
-      background: rgba(3, 4, 94, 0.85);
-      backdrop-filter: blur(10px);
-    }
-    .nav-logo {
-      font-size: 1.1rem; font-weight: 700; color: var(--gold);
-      letter-spacing: 0.05em;
-    }
-    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
-    .nav-links a {
-      color: #cce; text-decoration: none; font-size: 0.9rem;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--gold); }
-    @media (max-width: 600px) {
-      .nav-links { display: none; }
-    }
-
-    /* ── Hero ── */
-    .hero {
-      min-height: 100vh;
-      background:
-        linear-gradient(160deg, rgba(3,4,94,0.88) 0%, rgba(0,119,182,0.75) 60%, rgba(0,180,216,0.60) 100%),
-        url('https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=1600&q=80') center/cover no-repeat;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center;
-      padding: 6rem 1.5rem 3rem;
-      position: relative; overflow: hidden;
-    }
-    /* animated waves */
-    .hero::after {
-      content: '';
-      position: absolute; bottom: -2px; left: 0; right: 0;
-      height: 80px;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80'%3E%3Cpath fill='%23fff8ee' d='M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z'/%3E%3C/svg%3E") no-repeat bottom/cover;
-    }
-    .hero-badge {
-      display: inline-block;
-      background: var(--gold); color: var(--deep);
-      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em;
-      padding: 0.3rem 1rem; border-radius: 999px;
-      margin-bottom: 1.2rem; text-transform: uppercase;
-    }
-    .hero h1 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      color: #fff; font-weight: 800; line-height: 1.2;
-      text-shadow: 0 2px 20px rgba(0,0,0,0.4);
-      margin-bottom: 0.5rem;
-    }
-    .hero h1 span { color: var(--gold); }
-    .hero-sub {
-      color: rgba(255,255,255,0.85);
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-      margin-bottom: 2.5rem;
-    }
-
-    /* ── Countdown ── */
-    .countdown-wrap {
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.25);
-      backdrop-filter: blur(8px);
-      border-radius: 20px;
-      padding: 2rem 2.5rem;
-      margin-bottom: 2rem;
-      display: inline-block;
-    }
-    .countdown-label {
-      color: var(--gold); font-size: 0.85rem; letter-spacing: 0.15em;
-      text-transform: uppercase; margin-bottom: 1rem; font-weight: 600;
-    }
-    .countdown {
-      display: flex; gap: 1rem; align-items: center; justify-content: center;
-      flex-wrap: wrap;
-    }
-    .cd-unit {
-      display: flex; flex-direction: column; align-items: center;
-      min-width: 72px;
-    }
-    .cd-num {
-      font-size: clamp(2.2rem, 6vw, 3.5rem);
-      font-weight: 900; color: #fff; line-height: 1;
-      text-shadow: 0 0 30px rgba(0,180,216,0.6);
-      font-variant-numeric: tabular-nums;
-      letter-spacing: -0.02em;
-    }
-    .cd-text {
-      color: rgba(255,255,255,0.7); font-size: 0.72rem;
-      letter-spacing: 0.1em; margin-top: 0.3rem; text-transform: uppercase;
-    }
-    .cd-sep {
-      font-size: 2.5rem; color: var(--gold); font-weight: 700;
-      line-height: 1; padding-bottom: 0.8rem; opacity: 0.7;
-    }
-    .hero-date {
-      color: rgba(255,255,255,0.65); font-size: 0.85rem; margin-top: 1rem;
-    }
-    .scroll-hint {
-      position: absolute; bottom: 6rem; left: 50%; transform: translateX(-50%);
-      color: rgba(255,255,255,0.5); font-size: 0.8rem; letter-spacing: 0.1em;
-      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
-      animation: bounce 2s infinite;
-    }
-    .scroll-hint svg { width: 20px; opacity: 0.5; }
-    @keyframes bounce {
-      0%,100% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(6px); }
-    }
-
-    /* ── Section common ── */
-    section { padding: 5rem 1.5rem; }
-    .section-inner { max-width: 1100px; margin: 0 auto; }
-    .section-tag {
-      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--ocean);
-      margin-bottom: 0.5rem;
-    }
-    h2 {
-      font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800;
-      color: var(--deep); margin-bottom: 0.5rem;
-    }
-    .section-desc {
-      color: var(--muted); max-width: 600px; margin-bottom: 2.5rem;
-    }
-
-    /* ── Highlights ── */
-    #highlights { background: var(--sand); }
-    .highlight-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.5rem;
-    }
-    .h-card {
-      background: var(--card-bg);
-      border-radius: 16px;
-      padding: 1.8rem 1.5rem;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
-      border-top: 4px solid var(--teal);
-      transition: transform 0.25s, box-shadow 0.25s;
-    }
-    .h-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 36px rgba(0,119,182,0.15);
-    }
-    .h-icon {
-      font-size: 2.2rem; margin-bottom: 0.8rem;
-      display: block;
-    }
-    .h-card h3 {
-      font-size: 1rem; font-weight: 700; color: var(--deep);
-      margin-bottom: 0.4rem;
-    }
-    .h-card p { font-size: 0.88rem; color: var(--muted); }
-
-    /* ── Itinerary ── */
-    #itinerary { background: linear-gradient(180deg, #f0f7ff 0%, var(--sand) 100%); }
-    .timeline { position: relative; padding-left: 2rem; }
-    .timeline::before {
-      content: '';
-      position: absolute; left: 0.55rem; top: 0; bottom: 0;
-      width: 2px; background: linear-gradient(180deg, var(--teal), var(--ocean));
-      border-radius: 1px;
-    }
-    .tl-item {
-      position: relative; margin-bottom: 2.5rem;
-    }
-    .tl-dot {
-      position: absolute; left: -1.55rem; top: 0.35rem;
-      width: 14px; height: 14px; border-radius: 50%;
-      background: var(--teal); border: 3px solid white;
-      box-shadow: 0 0 0 2px var(--teal);
-    }
-    .tl-day {
-      display: inline-block;
-      background: var(--deep); color: var(--gold);
-      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
-      padding: 0.2rem 0.8rem; border-radius: 999px;
-      margin-bottom: 0.5rem; text-transform: uppercase;
-    }
-    .tl-item h3 {
-      font-size: 1.05rem; font-weight: 700; color: var(--deep);
-      margin-bottom: 0.4rem;
-    }
-    .tl-item p { font-size: 0.88rem; color: var(--muted); }
-    .tl-meals {
-      display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.6rem;
-    }
-    .meal-tag {
-      background: #e8f4fd; color: var(--ocean);
-      font-size: 0.72rem; font-weight: 600;
-      padding: 0.15rem 0.6rem; border-radius: 6px;
-    }
-
-    /* ── Hotels ── */
-    #hotels { background: var(--sand); }
-    .hotel-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-    .hotel-card {
-      background: var(--card-bg);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-      transition: transform 0.25s;
-    }
-    .hotel-card:hover { transform: translateY(-4px); }
-    .hotel-img {
-      width: 100%; height: 160px; object-fit: cover;
-      background: linear-gradient(135deg, var(--deep), var(--ocean));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 3rem;
-    }
-    .hotel-body { padding: 1.2rem 1.4rem; }
-    .hotel-star { color: var(--gold); font-size: 0.85rem; margin-bottom: 0.3rem; }
-    .hotel-body h3 { font-size: 1rem; font-weight: 700; color: var(--deep); margin-bottom: 0.4rem; }
-    .hotel-body p { font-size: 0.83rem; color: var(--muted); }
-    .hotel-nights {
-      display: inline-block; margin-top: 0.6rem;
-      background: #e8f7f0; color: #0a8c50;
-      font-size: 0.72rem; font-weight: 700;
-      padding: 0.15rem 0.6rem; border-radius: 6px;
-    }
-
-    /* ── Flight Info ── */
-    #flight { background: linear-gradient(135deg, var(--deep) 0%, var(--ocean) 100%); }
-    #flight h2, #flight .section-tag { color: rgba(255,255,255,0.9); }
-    #flight .section-desc { color: rgba(255,255,255,0.6); }
-    .flight-card {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 16px; padding: 1.5rem 2rem;
-      margin-bottom: 1rem; display: flex;
-      align-items: center; gap: 2rem; flex-wrap: wrap;
-    }
-    .flight-dir {
-      background: var(--gold); color: var(--deep);
-      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em;
-      padding: 0.2rem 0.8rem; border-radius: 6px;
-      text-transform: uppercase; min-width: 40px; text-align: center;
-    }
-    .flight-route {
-      display: flex; align-items: center; gap: 0.8rem;
-      flex: 1; min-width: 200px;
-    }
-    .fl-airport { text-align: center; }
-    .fl-code { font-size: 1.6rem; font-weight: 900; color: #fff; }
-    .fl-city { font-size: 0.72rem; color: rgba(255,255,255,0.6); }
-    .fl-line {
-      flex: 1; display: flex; flex-direction: column;
-      align-items: center; gap: 0.2rem;
-    }
-    .fl-line-bar {
-      width: 100%; height: 2px;
-      background: linear-gradient(90deg, var(--gold), var(--teal));
-      position: relative;
-    }
-    .fl-line-bar::after {
-      content: '✈'; position: absolute; right: -4px; top: -10px;
-      font-size: 1rem; color: var(--gold);
-    }
-    .fl-num { font-size: 0.75rem; color: rgba(255,255,255,0.55); }
-    .flight-time {
-      text-align: right;
-    }
-    .ft-main { font-size: 1rem; font-weight: 700; color: #fff; }
-    .ft-sub { font-size: 0.78rem; color: rgba(255,255,255,0.6); }
-
-    /* ── Tips ── */
-    #tips { background: var(--sand); }
-    .tips-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1.2rem;
-    }
-    .tip-card {
-      background: var(--card-bg); border-radius: 12px;
-      padding: 1.2rem 1.4rem;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-      border-left: 4px solid var(--gold);
-    }
-    .tip-card h4 { font-size: 0.92rem; font-weight: 700; color: var(--deep); margin-bottom: 0.3rem; }
-    .tip-card p { font-size: 0.82rem; color: var(--muted); }
-
-    /* ── Footer ── */
-    footer {
-      background: var(--deep); color: rgba(255,255,255,0.5);
-      text-align: center; padding: 2rem 1rem;
-      font-size: 0.83rem;
-    }
-    footer span { color: var(--gold); }
-
-    /* ── Animations ── */
-    .fade-up {
-      opacity: 0; transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
-  </style>
+  <title>Nextlink 員工旅遊 2026 — 奢華曼芭五日</title>
+  <meta name="description" content="Nextlink 2026 員工旅遊：亞特蘭提斯郵輪夜宴 × 千萬豪華遊艇 × 五星曼谷酒店，7/23 出發！" />
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <!-- Site CSS -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<!-- Nav -->
-<nav>
-  <div class="nav-logo">✈ Nextlink × BKK 2026</div>
-  <ul class="nav-links">
+<!-- Floating leaves (cannabis-adjacent 🌿) -->
+<div class="leaves-stage" aria-hidden="true"></div>
+
+<!-- ── Navbar ── -->
+<nav id="nav">
+  <a class="nav-brand" href="#">✦ Nextlink × BKK 2026</a>
+  <button class="nav-toggle" id="nav-toggle" aria-label="選單">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-menu" id="nav-menu">
     <li><a href="#highlights">行程亮點</a></li>
     <li><a href="#itinerary">五日行程</a></li>
     <li><a href="#hotels">入住飯店</a></li>
@@ -344,355 +34,463 @@
   </ul>
 </nav>
 
-<!-- Hero -->
-<section class="hero">
-  <div class="hero-badge">Nextlink 員工旅遊 2026</div>
-  <h1>奢華<span>曼芭</span>之旅<br/>即將啟程</h1>
-  <p class="hero-sub">亞特蘭提斯郵輪夜宴 × 千萬豪華遊艇 × 五星曼谷酒店</p>
+<!-- ── Hero ── -->
+<header class="hero">
+  <div class="blob blob-a"></div>
+  <div class="blob blob-b"></div>
+  <div class="blob blob-c"></div>
+  <div class="stars"></div>
 
-  <div class="countdown-wrap">
-    <div class="countdown-label">距離出發還有</div>
+  <span class="hero-eyebrow">🌴 Nextlink 員工旅遊 2026</span>
+
+  <h1>
+    奢華<em>曼芭</em>之旅<br/>即將啟程
+  </h1>
+
+  <p class="hero-tagline">
+    亞特蘭提斯郵輪夜宴 × 千萬豪華遊艇 × 五星曼谷酒店<br />
+    <span class="herb-hint">感受芭達雅的海風，以及曼谷街頭那獨特的自由氣息 🌿</span>
+  </p>
+
+  <!-- Countdown -->
+  <div class="cd-card">
+    <div class="cd-label">距離出發還有</div>
     <div class="countdown">
       <div class="cd-unit">
-        <span class="cd-num" id="cd-days">--</span>
-        <span class="cd-text">天</span>
+        <span class="cd-num" id="cd-d">--</span>
+        <span class="cd-unit-label">天</span>
       </div>
-      <div class="cd-sep">:</div>
+      <div class="cd-colon">:</div>
       <div class="cd-unit">
-        <span class="cd-num" id="cd-hours">--</span>
-        <span class="cd-text">小時</span>
+        <span class="cd-num" id="cd-h">--</span>
+        <span class="cd-unit-label">小時</span>
       </div>
-      <div class="cd-sep">:</div>
+      <div class="cd-colon">:</div>
       <div class="cd-unit">
-        <span class="cd-num" id="cd-mins">--</span>
-        <span class="cd-text">分鐘</span>
+        <span class="cd-num" id="cd-m">--</span>
+        <span class="cd-unit-label">分鐘</span>
       </div>
-      <div class="cd-sep">:</div>
+      <div class="cd-colon">:</div>
       <div class="cd-unit">
-        <span class="cd-num" id="cd-secs">--</span>
-        <span class="cd-text">秒</span>
+        <span class="cd-num" id="cd-s">--</span>
+        <span class="cd-unit-label">秒</span>
       </div>
     </div>
-    <div class="hero-date">2026 年 7 月 23 日 13:50 集合出發</div>
+    <div class="cd-note">2026 年 7 月 23 日 13:50 · 桃園國際機場出發</div>
   </div>
 
-  <div class="scroll-hint">
+  <div class="scroll-cue">
     <span>向下探索</span>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <polyline points="6 9 12 15 18 9"/>
     </svg>
   </div>
-</section>
 
-<!-- Highlights -->
+  <!-- Wave -->
+  <div class="hero-wave">
+    <svg viewBox="0 0 1440 72" preserveAspectRatio="none" fill="#faf7f0" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,72 L0,72 Z"/>
+    </svg>
+  </div>
+</header>
+
+<!-- ── Highlights ── -->
 <section id="highlights">
-  <div class="section-inner">
-    <p class="section-tag fade-up">行程亮點</p>
-    <h2 class="fade-up">精彩體驗等你來</h2>
-    <p class="section-desc fade-up">五天四夜，從芭達雅到曼谷，奢華與文化並存的完美旅程。</p>
-    <div class="highlight-grid">
-      <div class="h-card fade-up">
-        <span class="h-icon">🚢</span>
+  <div class="inner">
+    <p class="s-eyebrow" data-aos="fade-right">行程亮點</p>
+    <h2 class="s-title" data-aos="fade-up">每一刻都值得期待</h2>
+    <p class="s-desc" data-aos="fade-up" data-aos-delay="60">
+      五天四夜，從芭達雅到曼谷，奢華體驗與異國文化交織，讓這趟旅程成為最美好的共同記憶。
+    </p>
+    <div class="hl-grid">
+      <div class="hl-card" data-aos="fade-up" data-aos-delay="0">
+        <span class="hl-icon">🚢</span>
         <h3>亞特蘭提斯號郵輪夜宴</h3>
-        <p>全新舞台升級視覺體驗，量身訂製華麗服裝，海陸自助美食盡情享用。</p>
+        <p>全新舞台震撼升級，前所未見的表演陣容，量身訂製華麗服裝，海陸自助美食無限享用。</p>
       </div>
-      <div class="h-card fade-up">
-        <span class="h-icon">⛵</span>
-        <h3>千萬豪華遊艇派對</h3>
-        <p>市價逾 300 萬美金的私人帆船俱樂部，碧海藍天體驗海釣，BBQ 午餐。</p>
+      <div class="hl-card" data-aos="fade-up" data-aos-delay="60">
+        <span class="hl-icon">⛵</span>
+        <h3>千萬豪華遊艇半日遊</h3>
+        <p>市價逾 300 萬美金私人帆船俱樂部，碧海藍天體驗海釣，附贈水上摩托車、香蕉船各一次。</p>
       </div>
-      <div class="h-card fade-up">
-        <span class="h-icon">🏨</span>
-        <h3>五星曼谷酒店</h3>
-        <p>Bangkok Marriott Marquis、Grand Hyatt Erawan、SO/ Bangkok 等頂級酒店輪番入住。</p>
+      <div class="hl-card" data-aos="fade-up" data-aos-delay="120">
+        <span class="hl-icon">🏨</span>
+        <h3>五星奢華酒店</h3>
+        <p>Bangkok Marriott Marquis Queen's Park，1,360 間客房、室外泳池、SPA、多國料理。</p>
       </div>
-      <div class="h-card fade-up">
-        <span class="h-icon">🦁</span>
+      <div class="hl-card" data-aos="fade-up" data-aos-delay="0">
+        <span class="hl-icon">🦁</span>
         <h3>綠山國家動物園</h3>
-        <p>泰國最大野生動物園，300 種動物超過 8,000 隻，一日三場動物表演秀。</p>
+        <p>泰國最大野生動物園，300 種動物達 8,000 隻，一日三場動物秀，可近距離餵食互動。</p>
       </div>
-      <div class="h-card fade-up">
-        <span class="h-icon">🛍️</span>
+      <div class="hl-card" data-aos="fade-up" data-aos-delay="60">
+        <span class="hl-icon">🛍️</span>
         <h3>ICONSIAM 暹羅天地</h3>
-        <p>耗資 540 億泰銖打造，河畔超大型購物地標，室內水上市場感受道地泰國風情。</p>
+        <p>耗資 540 億泰銖打造，河畔超大地標，室內水上市場、泡泡馬特旗艦店一次逛透透。</p>
       </div>
-      <div class="h-card fade-up">
-        <span class="h-icon">💆</span>
+      <div class="hl-card" data-aos="fade-up" data-aos-delay="120">
+        <span class="hl-icon">💆</span>
         <h3>泰式古法按摩 2 小時</h3>
-        <p>精彩活動後的完美放鬆，舒筋活絡神清氣爽，行程特別贈送！</p>
+        <p>精彩活動後的完美放鬆，舒筋活絡神清氣爽，行程特別加贈，讓身心徹底充電。</p>
       </div>
-      <div class="h-card fade-up">
-        <span class="h-icon">🌸</span>
+      <div class="hl-card herb" data-aos="fade-up" data-aos-delay="0">
+        <span class="hl-icon">🌿</span>
+        <h3>泰式草本奇遇</h3>
+        <p>漫步曼谷街頭，空氣中飄散著這片土地特有的綠意芬芳——大自然的饋贈，此刻請用心感受。</p>
+        <span class="herb-tag">✦ 返台前請確認行李符合規定</span>
+      </div>
+      <div class="hl-card" data-aos="fade-up" data-aos-delay="60">
+        <span class="hl-icon">🌸</span>
         <h3>專屬香氛手作體驗</h3>
-        <p>在專業老師引導下親手調製香水或擴香，將曼谷的氣味記憶封存帶回家。</p>
-      </div>
-      <div class="h-card fade-up">
-        <span class="h-icon">✈️</span>
-        <h3>Terminal 21 芭達雅</h3>
-        <p>比曼谷分店更大更好拍，各樓層以各國城市為主題設計，必打卡景點！</p>
+        <p>在專業老師引導下親手調製香水或擴香，將曼谷的氣味記憶封存帶回屬於你的旅途香氣。</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Itinerary -->
+<!-- ── Itinerary ── -->
 <section id="itinerary">
-  <div class="section-inner">
-    <p class="section-tag fade-up">五日行程</p>
-    <h2 class="fade-up">每一天都是驚喜</h2>
-    <p class="section-desc fade-up">從芭達雅到曼谷，奢華享受與精彩體驗交織而成的完美旅程。</p>
+  <div class="inner">
+    <p class="s-eyebrow" data-aos="fade-right">五日行程</p>
+    <h2 class="s-title" data-aos="fade-up">每一天都是驚喜</h2>
+    <p class="s-desc" data-aos="fade-up" data-aos-delay="60">
+      從芭達雅海灣到曼谷市中心，豐富行程精心安排，不留遺憾。
+    </p>
+
     <div class="timeline">
-      <div class="tl-item fade-up">
-        <div class="tl-dot"></div>
-        <span class="tl-day">Day 1 — 7/24</span>
-        <h3>桃園 → 曼谷 → 芭達雅 ✈ 亞特蘭提斯號郵輪夜宴</h3>
-        <p>搭乘星宇航空 JX745 啟程，抵達曼谷後直奔芭達雅。當晚登上最新東方亞特蘭提斯號，享受海上頂級娛樂晚宴，美味海陸自助餐搭配震撼表演。</p>
-        <div class="tl-meals">
-          <span class="meal-tag">🍱 機上午餐</span>
-          <span class="meal-tag">🚢 船上自助晚餐</span>
-          <span class="meal-tag">🏨 Manhattan Pattaya Hotel</span>
+      <!-- Day 1 -->
+      <div class="tl-row" data-aos="fade-up">
+        <div class="tl-meta">
+          <span class="tl-day">Day 1</span>
+          <span class="tl-date">7/23</span>
+        </div>
+        <div class="tl-connector"><div class="tl-dot"></div></div>
+        <div class="tl-content">
+          <h3>🛫 桃園 → 曼谷 → 芭達雅 ✦ 亞特蘭提斯號夜宴</h3>
+          <p>集合桃園機場，搭乘星宇航空 JX745 出發。抵達曼谷後直奔芭達雅，當晚登上最新東方亞特蘭提斯號，享受頂級海上娛樂盛典，海陸自助美食搭配震撼表演。</p>
+          <div class="tl-tags">
+            <span class="tl-tag meal">🍱 機上午餐</span>
+            <span class="tl-tag meal">🚢 船上自助晚餐</span>
+            <span class="tl-tag hotel">🏨 Manhattan Pattaya Hotel</span>
+          </div>
         </div>
       </div>
-      <div class="tl-item fade-up">
-        <div class="tl-dot"></div>
-        <span class="tl-day">Day 2 — 7/25</span>
-        <h3>芭達雅 ⛵ 千萬豪華遊艇 + 泰式指壓 + Terminal 21</h3>
-        <p>乘坐市價逾 300 萬美金的私人遊艇出海，享受海釣、水上摩托車、香蕉船。下午接受泰式指壓 2 小時深度放鬆，傍晚逛超好拍的 Terminal 21 芭達雅百貨。</p>
-        <div class="tl-meals">
-          <span class="meal-tag">🍳 飯店早餐</span>
-          <span class="meal-tag">🍖 遊艇 BBQ 午餐</span>
-          <span class="meal-tag">🦆 雅苑北京烤鴨晚餐</span>
-          <span class="meal-tag">🏨 Manhattan Pattaya Hotel</span>
+      <!-- Day 2 -->
+      <div class="tl-row" data-aos="fade-up">
+        <div class="tl-meta">
+          <span class="tl-day">Day 2</span>
+          <span class="tl-date">7/24</span>
+        </div>
+        <div class="tl-connector"><div class="tl-dot"></div></div>
+        <div class="tl-content">
+          <h3>⛵ 千萬豪華遊艇 + 💆 泰式指壓 + 🏬 Terminal 21</h3>
+          <p>乘坐市價逾 300 萬美金私人遊艇，盡情海釣、享受水上摩托車與香蕉船，BBQ 午餐在甲板上完成。下午 2 小時泰式指壓深度放鬆，傍晚逛超好拍的 Terminal 21 芭達雅百貨。</p>
+          <div class="tl-tags">
+            <span class="tl-tag meal">🍳 飯店早餐</span>
+            <span class="tl-tag meal">🍖 遊艇 BBQ 午餐</span>
+            <span class="tl-tag meal">🦆 北京烤鴨晚餐</span>
+            <span class="tl-tag hotel">🏨 Manhattan Pattaya Hotel</span>
+          </div>
         </div>
       </div>
-      <div class="tl-item fade-up">
-        <div class="tl-dot"></div>
-        <span class="tl-day">Day 3 — 7/26</span>
-        <h3>芭達雅 → 曼谷 🦒 綠山動物園 + 香氛手作 + ICONSIAM</h3>
-        <p>上午探訪泰國最大野生動物園綠山，與斑馬、長頸鹿、獅子近距離互動。下午移師曼谷，親手製作專屬香氛，再逛 ICONSIAM 暹羅天地 × 泡泡馬特旗艦店。</p>
-        <div class="tl-meals">
-          <span class="meal-tag">🍳 飯店早餐</span>
-          <span class="meal-tag">🍜 SAVOEY 泰式午餐</span>
-          <span class="meal-tag">🍽️ 晚餐自理</span>
-          <span class="meal-tag">🏨 曼谷五星酒店</span>
+      <!-- Day 3 -->
+      <div class="tl-row" data-aos="fade-up">
+        <div class="tl-meta">
+          <span class="tl-day">Day 3</span>
+          <span class="tl-date">7/25</span>
+        </div>
+        <div class="tl-connector"><div class="tl-dot"></div></div>
+        <div class="tl-content">
+          <h3>🦒 綠山動物園 → 🌿 香氛手作 → 🛍️ ICONSIAM × 泡泡馬特</h3>
+          <p>上午探訪泰國最大野生動物園，與斑馬、長頸鹿、獅虎近距離互動。移師曼谷後，在專業老師引導下親手調製專屬香氛，再逛 ICONSIAM 暹羅天地與泡泡馬特旗艦店。</p>
+          <div class="tl-tags">
+            <span class="tl-tag meal">🍳 飯店早餐</span>
+            <span class="tl-tag meal">🍜 SAVOEY 泰式午餐</span>
+            <span class="tl-tag meal">🍽️ 晚餐自理</span>
+            <span class="tl-tag hotel">🏨 曼谷五星酒店</span>
+          </div>
         </div>
       </div>
-      <div class="tl-item fade-up">
-        <div class="tl-dot"></div>
-        <span class="tl-day">Day 4 — 7/27</span>
-        <h3>曼谷 🗺️ 全日自由活動</h3>
-        <p>享受沒有 Morning Call 的悠閒早晨！可自費參加一日遊（水上市場、安帕瓦鐵路市場、吞武里海鮮市場），或自行前往人造衝浪樂園、溫泉 SPA、頂級下午茶等。</p>
-        <div class="tl-meals">
-          <span class="meal-tag">🍳 飯店早餐</span>
-          <span class="meal-tag">🍽️ 午晚餐自理</span>
-          <span class="meal-tag">🏨 曼谷五星酒店</span>
+      <!-- Day 4 -->
+      <div class="tl-row" data-aos="fade-up">
+        <div class="tl-meta">
+          <span class="tl-day">Day 4</span>
+          <span class="tl-date">7/26</span>
+        </div>
+        <div class="tl-connector"><div class="tl-dot"></div></div>
+        <div class="tl-content">
+          <h3>🗺️ 曼谷全日自由活動</h3>
+          <p>沒有 Morning Call 的悠閒早晨！可自費參加一日遊（水上市場 → 安帕瓦鐵路市場 → Damnoen Sky 飛機咖啡廳 → 吞武里海鮮市場），或自行前往 Flow House 人造衝浪、溫泉 SPA、Erawan Tea Room 下午茶。</p>
+          <div class="tl-tags">
+            <span class="tl-tag meal">🍳 飯店早餐</span>
+            <span class="tl-tag meal">🍽️ 午晚餐自理</span>
+            <span class="tl-tag hotel">🏨 曼谷五星酒店</span>
+          </div>
         </div>
       </div>
-      <div class="tl-item fade-up">
-        <div class="tl-dot"></div>
-        <span class="tl-day">Day 5 — 7/28</span>
-        <h3>曼谷 → 台北 ✈ 歸途</h3>
-        <p>把握最後上午享受頂級酒店設施與早餐，帶著滿滿美好回憶登上 JX746，傍晚飛回溫暖的家。</p>
-        <div class="tl-meals">
-          <span class="meal-tag">🍳 飯店早餐</span>
-          <span class="meal-tag">🍱 機上午餐</span>
-          <span class="meal-tag">🏠 溫暖甜蜜的家</span>
+      <!-- Day 5 -->
+      <div class="tl-row" data-aos="fade-up">
+        <div class="tl-meta">
+          <span class="tl-day">Day 5</span>
+          <span class="tl-date">7/27</span>
+        </div>
+        <div class="tl-connector"><div class="tl-dot"></div></div>
+        <div class="tl-content">
+          <h3>🛬 曼谷 → 台北，帶著滿滿回憶回家</h3>
+          <p>把握最後上午盡享頂級酒店早餐與設施，帶著滿滿的美好記憶，搭乘 JX746 傍晚飛返台北，結束這趟精彩的泰國奢華之旅。</p>
+          <div class="tl-tags">
+            <span class="tl-tag meal">🍳 飯店早餐</span>
+            <span class="tl-tag meal">🍱 機上午餐</span>
+            <span class="tl-tag hotel">🏠 溫暖甜蜜的家</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Hotels -->
+<!-- ── Hotels ── -->
 <section id="hotels">
-  <div class="section-inner">
-    <p class="section-tag fade-up">入住飯店</p>
-    <h2 class="fade-up">奢華住宿體驗</h2>
-    <p class="section-desc fade-up">從芭達雅海濱到曼谷市中心，每一晚都是頂級享受。</p>
+  <div class="inner">
+    <p class="s-eyebrow" data-aos="fade-right">入住飯店</p>
+    <h2 class="s-title" data-aos="fade-up">奢華住宿體驗</h2>
+    <p class="s-desc" data-aos="fade-up" data-aos-delay="60">
+      從芭達雅海濱到曼谷市中心，四晚頂級酒店，每一晚都是驚喜。
+    </p>
     <div class="hotel-grid">
-      <div class="hotel-card fade-up">
-        <div class="hotel-img">🏖️</div>
+      <!-- Hotel 1 -->
+      <div class="hotel-card" data-aos="fade-up">
+        <div class="hotel-cover hotel-cover-1">
+          <span class="hotel-nights-pill">第 1–2 晚</span>
+          <div class="hotel-big-icon">🏖️</div>
+          <div class="hotel-stars-pill">★★★★★</div>
+        </div>
         <div class="hotel-body">
-          <div class="hotel-star">★★★★★</div>
           <h3>Manhattan Pattaya Hotel</h3>
-          <p>94 間精緻客房含 15 間套房，現代設計風格，享有花園或城市景觀私人陽台，設有游泳池、Fat Belly 泰式西餐廳。</p>
-          <span class="hotel-nights">📅 第 1–2 晚</span>
+          <div class="hotel-loc">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            芭達雅市中心，Pattaya City, Thailand
+          </div>
+          <p class="hotel-desc">
+            94 間精緻客房含 15 間套房，現代設計風格，享有花園或城市景觀私人陽台。設有綠樹環繞的寬闊游泳池、BAR、EAT 早餐廳及 Fat Belly Pattaya 泰式西餐廳。
+          </p>
+          <div class="hotel-actions">
+            <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Manhattan+Pattaya+Hotel+Pattaya+Thailand" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+              在 Google Maps 查看
+            </a>
+            <div class="hotel-feature">
+              <span class="h-feat">🏊 游泳池</span>
+              <span class="h-feat">🍳 早餐</span>
+              <span class="h-feat">🍸 BAR</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="hotel-card fade-up">
-        <div class="hotel-img">👑</div>
+      <!-- Hotel 2 -->
+      <div class="hotel-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="hotel-cover hotel-cover-2">
+          <span class="hotel-nights-pill">第 3–4 晚</span>
+          <div class="hotel-big-icon">👑</div>
+          <div class="hotel-stars-pill">★★★★★</div>
+        </div>
         <div class="hotel-body">
-          <div class="hotel-star">★★★★★</div>
           <h3>Bangkok Marriott Marquis Queen's Park</h3>
-          <p>1,360 間客房與套房，36 層樓高，設有室外泳池、SPA、健身中心，多國美食餐廳，24 小時禮賓服務。</p>
-          <span class="hotel-nights">📅 第 3–4 晚</span>
-        </div>
-      </div>
-      <div class="hotel-card fade-up">
-        <div class="hotel-img">🌟</div>
-        <div class="hotel-body">
-          <div class="hotel-star">★★★★★</div>
-          <h3>Grand Hyatt Erawan Bangkok</h3>
-          <p>位於曼谷主要商業區，毗鄰四面佛，Techno Gym 健身中心、國際自助美食餐廳、精緻酒吧，地理位置絕佳。</p>
-          <span class="hotel-nights">📅 第 3–4 晚（擇一）</span>
-        </div>
-      </div>
-      <div class="hotel-card fade-up">
-        <div class="hotel-img">✨</div>
-        <div class="hotel-body">
-          <div class="hotel-star">★★★★★</div>
-          <h3>SO/ Bangkok</h3>
-          <p>設計感十足的精品酒店，無邊際泳池俯瞰曼谷天際線，潮流與奢華完美融合，IG 打卡超人氣地標。</p>
-          <span class="hotel-nights">📅 第 3–4 晚（擇一）</span>
+          <div class="hotel-loc">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            Sukhumvit Soi 22, Bangkok, Thailand
+          </div>
+          <p class="hotel-desc">
+            1,360 間客房與套房，36 層樓高，室外游泳池、完善健身中心、SPA、全館免費 WiFi。多間頂級餐廳：Goji Kitchen、中式 The Pagoda、日式 Soba Factory、泰式 Siam Tea Room。
+          </p>
+          <div class="hotel-actions">
+            <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Bangkok+Marriott+Marquis+Queen%27s+Park" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+              在 Google Maps 查看
+            </a>
+            <div class="hotel-feature">
+              <span class="h-feat">🏊 游泳池</span>
+              <span class="h-feat">💆 SPA</span>
+              <span class="h-feat">🍽️ 多國料理</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Flight -->
+<!-- ── Flight ── -->
 <section id="flight">
-  <div class="section-inner">
-    <p class="section-tag fade-up">航班資訊</p>
-    <h2 class="fade-up" style="color:#fff">星宇航空直飛曼谷</h2>
-    <p class="section-desc fade-up">搭乘星宇航空舒適出發，往返班次清晰方便規劃。</p>
-    <div class="flight-card fade-up">
-      <div class="flight-dir">去程</div>
-      <div class="flight-route">
-        <div class="fl-airport">
-          <div class="fl-code">TPE</div>
-          <div class="fl-city">台北桃園</div>
+  <div class="inner">
+    <p class="s-eyebrow" data-aos="fade-right">航班資訊</p>
+    <h2 class="s-title" data-aos="fade-up">星宇航空直飛曼谷</h2>
+    <p class="s-desc" data-aos="fade-up" data-aos-delay="60">
+      搭乘星宇航空舒適出發，去回程清晰，輕鬆規劃旅程。
+    </p>
+    <div class="flight-list">
+      <!-- Go -->
+      <div class="f-card" data-aos="fade-up">
+        <div class="f-badge go">去程</div>
+        <div class="f-route">
+          <div class="f-ap">
+            <div class="f-code">TPE</div>
+            <div class="f-city">台北桃園</div>
+          </div>
+          <div class="f-mid">
+            <div class="f-bar"></div>
+            <div class="f-num">JX 745 · 星宇航空 · 3h 50m</div>
+          </div>
+          <div class="f-ap">
+            <div class="f-code">BKK</div>
+            <div class="f-city">曼谷蘇汪納蓬</div>
+          </div>
         </div>
-        <div class="fl-line">
-          <div class="fl-line-bar"></div>
-          <div class="fl-num">JX 745 ｜ 3h 50m</div>
-        </div>
-        <div class="fl-airport">
-          <div class="fl-code">BKK</div>
-          <div class="fl-city">曼谷蘇汪納蓬</div>
-        </div>
-      </div>
-      <div class="flight-time">
-        <div class="ft-main">13:50 → 16:40</div>
-        <div class="ft-sub">2026 年 7 月 24 日</div>
-      </div>
-    </div>
-    <div class="flight-card fade-up">
-      <div class="flight-dir" style="background:var(--teal);color:#fff;">回程</div>
-      <div class="flight-route">
-        <div class="fl-airport">
-          <div class="fl-code">BKK</div>
-          <div class="fl-city">曼谷蘇汪納蓬</div>
-        </div>
-        <div class="fl-line">
-          <div class="fl-line-bar" style="background:linear-gradient(90deg,var(--teal),var(--gold));"></div>
-          <div class="fl-num">JX 746 ｜ 3h 50m</div>
-        </div>
-        <div class="fl-airport">
-          <div class="fl-code">TPE</div>
-          <div class="fl-city">台北桃園</div>
+        <div class="f-time">
+          <div class="f-time-main">13:50 → 16:40</div>
+          <div class="f-time-sub">2026 年 7 月 23 日（四）</div>
         </div>
       </div>
-      <div class="flight-time">
-        <div class="ft-main">17:40 → 22:30</div>
-        <div class="ft-sub">2026 年 7 月 28 日</div>
+      <!-- Return -->
+      <div class="f-card" data-aos="fade-up" data-aos-delay="80">
+        <div class="f-badge back">回程</div>
+        <div class="f-route">
+          <div class="f-ap">
+            <div class="f-code">BKK</div>
+            <div class="f-city">曼谷蘇汪納蓬</div>
+          </div>
+          <div class="f-mid">
+            <div class="f-bar" style="background:linear-gradient(90deg,var(--teal),var(--gold))"></div>
+            <div class="f-num">JX 746 · 星宇航空 · 3h 50m</div>
+          </div>
+          <div class="f-ap">
+            <div class="f-code">TPE</div>
+            <div class="f-city">台北桃園</div>
+          </div>
+        </div>
+        <div class="f-time">
+          <div class="f-time-main">17:40 → 22:30</div>
+          <div class="f-time-sub">2026 年 7 月 27 日（一）</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Tips -->
+<!-- ── Tips ── -->
 <section id="tips">
-  <div class="section-inner">
-    <p class="section-tag fade-up">旅遊須知</p>
-    <h2 class="fade-up">出發前必讀</h2>
-    <p class="section-desc fade-up">讓旅程更順暢，請注意以下重要提醒。</p>
+  <div class="inner">
+    <p class="s-eyebrow" data-aos="fade-right">旅遊須知</p>
+    <h2 class="s-title" data-aos="fade-up">出發前必讀</h2>
+    <p class="s-desc" data-aos="fade-up" data-aos-delay="60">
+      讓旅程更順暢，幾個重要提醒請先收好。
+    </p>
     <div class="tips-grid">
-      <div class="tip-card fade-up">
+      <div class="tip-card" data-aos="fade-up">
         <h4>💵 入境現金</h4>
-        <p>每人須備泰銖 20,000 銖（或等值外幣），每個家庭須備 40,000 銖，海關可能隨機抽查。</p>
+        <p>每人須備泰銖 20,000 銖（或等值外幣），每個家庭 40,000 銖，海關隨機抽查。</p>
       </div>
-      <div class="tip-card fade-up">
+      <div class="tip-card" data-aos="fade-up" data-aos-delay="40">
         <h4>🛂 簽證辦理</h4>
-        <p>持中華民國護照需辦理觀光簽證（出發前），費用台幣 1,200 元，護照需有效期六個月以上。</p>
+        <p>持中華民國護照需於出發前辦理觀光簽證，費用 NT$1,200，護照效期需六個月以上。</p>
       </div>
-      <div class="tip-card fade-up">
+      <div class="tip-card" data-aos="fade-up" data-aos-delay="80">
+        <h4>🚢 遊艇注意</h4>
+        <p>報名遊艇後不另排水上摩托車等自費活動；遊艇體驗海釣基於環保，魚隻將野放。</p>
+      </div>
+      <div class="tip-card" data-aos="fade-up" data-aos-delay="120">
         <h4>👶 年齡限制</h4>
-        <p>16 歲以下無法安排按摩指壓；12 歲以下不佔床者看秀不提供座位。70 歲以上需家人同行。</p>
+        <p>16 歲以下無法安排按摩指壓，12 歲以下不佔床者看秀不提供座位，均無退費。</p>
       </div>
-      <div class="tip-card fade-up">
+      <div class="tip-card" data-aos="fade-up">
         <h4>🚬 煙酒限量</h4>
-        <p>香煙不超過 200 根（或 250g），酒類不超過 1 公升。電子煙在泰國違法，請勿攜帶。</p>
+        <p>香煙最多 200 根或 250g，酒類不超過 1 公升。<strong>電子煙在泰國違法</strong>，請勿攜帶。</p>
       </div>
-      <div class="tip-card fade-up">
-        <h4>🌊 水上活動</h4>
-        <p>報名遊艇行程後，不另安排水上摩托車、香蕉船等自費活動。離島水上活動不可轉讓退費。</p>
-      </div>
-      <div class="tip-card fade-up">
+      <div class="tip-card" data-aos="fade-up" data-aos-delay="40">
         <h4>💰 小費建議</h4>
-        <p>領隊、司機、導遊小費每日每人建議 NT$300，全程共 NT$1,500，請自行準備。</p>
+        <p>領隊、司機、導遊小費每日每人建議 NT$300，五天共 NT$1,500，請自行備好零錢。</p>
       </div>
-      <div class="tip-card fade-up">
+      <div class="tip-card herb-tip" data-aos="fade-up" data-aos-delay="80">
+        <h4>🌿 曼谷的綠色自由</h4>
+        <p>泰國於 2022 年開放了一些植物文化的自由，漫步街頭或許會有意外的芬芳邂逅。</p>
+        <p class="tip-wink">溫馨提醒：回台前請確認隨身物品完全符合中華民國法規，大自然的饋贈請留在當地 😉</p>
+      </div>
+      <div class="tip-card" data-aos="fade-up" data-aos-delay="120">
         <h4>🧴 個人備品</h4>
-        <p>泰國多數酒店不提供吹風機及牙膏牙刷，請自行攜帶個人衛生用品。</p>
-      </div>
-      <div class="tip-card fade-up">
-        <h4>🛍️ 購物袋</h4>
-        <p>泰國自 2020 年起全面禁止提供塑膠袋，採買時請自備環保購物袋。</p>
+        <p>泰國多數酒店不提供吹風機、牙膏牙刷，請自行攜帶；購物也請備好環保購物袋。</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Footer -->
+<!-- ── Footer ── -->
 <footer>
-  <p>✈ <span>Nextlink 員工旅遊 2026</span> — 奢華曼芭五日遊</p>
-  <p style="margin-top:0.4rem;">2026.7.24 – 7.28 ｜ 星宇航空 JX745/746 ｜ 5 天 4 夜</p>
+  <div class="footer-logo">✦ Nextlink × BKK 2026</div>
+  <p class="footer-line">奢華曼芭五日遊 · 5 天 4 夜</p>
+  <p class="footer-line">2026.07.23（四）出發 — 2026.07.27（一）回台</p>
+  <p class="footer-line">星宇航空 JX745 / JX746</p>
+  <div class="footer-divider"></div>
+  <p class="footer-legal">© 2026 Nextlink Employee Trip · 行程以行前說明會資料為準 · 小費每日 NT$300/人</p>
 </footer>
 
+<!-- ── Scripts ── -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  // ── Countdown ──
-  const TARGET = new Date('2026-07-23T13:50:00');
+// AOS
+AOS.init({ duration: 680, once: true, offset: 70, easing: 'ease-out-quart' });
 
-  function pad(n) { return String(n).padStart(2, '0'); }
-
-  function tick() {
-    const now  = new Date();
-    const diff = TARGET - now;
-
-    if (diff <= 0) {
-      document.getElementById('cd-days').textContent  = '00';
-      document.getElementById('cd-hours').textContent = '00';
-      document.getElementById('cd-mins').textContent  = '00';
-      document.getElementById('cd-secs').textContent  = '00';
-      return;
-    }
-
-    const days  = Math.floor(diff / 86400000);
-    const hours = Math.floor((diff % 86400000) / 3600000);
-    const mins  = Math.floor((diff % 3600000)  / 60000);
-    const secs  = Math.floor((diff % 60000)    / 1000);
-
-    document.getElementById('cd-days').textContent  = pad(days);
-    document.getElementById('cd-hours').textContent = pad(hours);
-    document.getElementById('cd-mins').textContent  = pad(mins);
-    document.getElementById('cd-secs').textContent  = pad(secs);
+// ── Countdown ──
+const TARGET = new Date('2026-07-23T13:50:00');
+function pad(n) { return String(Math.max(0, n)).padStart(2, '0'); }
+function tick() {
+  const diff = TARGET - Date.now();
+  if (diff <= 0) {
+    ['cd-d','cd-h','cd-m','cd-s'].forEach(id => document.getElementById(id).textContent = '00');
+    return;
   }
+  document.getElementById('cd-d').textContent = pad(Math.floor(diff / 86400000));
+  document.getElementById('cd-h').textContent = pad(Math.floor((diff % 86400000) / 3600000));
+  document.getElementById('cd-m').textContent = pad(Math.floor((diff % 3600000) / 60000));
+  document.getElementById('cd-s').textContent = pad(Math.floor((diff % 60000) / 1000));
+}
+tick(); setInterval(tick, 1000);
 
-  tick();
-  setInterval(tick, 1000);
+// ── Navbar scroll ──
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('stuck', window.scrollY > 40);
+}, { passive: true });
 
-  // ── Scroll fade-in ──
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12 });
+// ── Mobile nav ──
+const toggle = document.getElementById('nav-toggle');
+const menu   = document.getElementById('nav-menu');
+toggle.addEventListener('click', () => {
+  menu.classList.toggle('open');
+});
+menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
 
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+// ── Floating Leaves ──
+const stage = document.querySelector('.leaves-stage');
+const icons = ['🌿','🍃','🌱','🍀'];
+const count = 14;
+for (let i = 0; i < count; i++) {
+  const el = document.createElement('span');
+  el.className = 'fl';
+  el.textContent = icons[i % icons.length];
+  const dur   = 18 + Math.random() * 22;
+  const delay = Math.random() * -30;
+  const left  = Math.random() * 100;
+  el.style.cssText = `left:${left}%;animation-duration:${dur}s;animation-delay:${delay}s;font-size:${0.7+Math.random()*0.8}rem;`;
+  stage.appendChild(el);
+}
 </script>
 </body>
 </html>
