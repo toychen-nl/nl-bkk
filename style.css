@@ -243,6 +243,23 @@ a { color: inherit; }
   color: rgba(255,255,255,0.25); font-weight: 300;
   line-height: 1.1; padding-bottom: 1.2rem;
 }
+.cd-dot {
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
+  padding-bottom: 1.5rem;
+  opacity: 0.4;
+}
+.cd-unit-ms .cd-num {
+  font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+  color: var(--teal);
+  text-shadow: 0 0 32px rgba(0,180,216,0.7);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+  min-width: 64px;
+  text-align: center;
+}
+.cd-unit-ms .cd-unit-label {
+  color: rgba(0,180,216,0.5);
+}
 .cd-note {
   margin-top: 1.4rem;
   color: rgba(255,255,255,0.4);
@@ -581,10 +598,11 @@ footer {
   .nav-toggle { display: block; }
   section { padding: 5rem 1.2rem; }
   .hero { padding: 8rem 1.2rem 5rem; }
-  .cd-card { padding: 1.8rem 1.5rem; }
-  .cd-unit { min-width: 64px; }
-  .countdown { gap: 0.25rem; }
+  .cd-card { padding: 1.8rem 1.2rem; }
+  .cd-unit { min-width: 56px; }
+  .countdown { gap: 0.15rem; }
   .cd-colon { font-size: 2rem; }
+  .cd-unit-ms .cd-num { font-size: 1.6rem; min-width: 52px; }
   /* Timeline mobile */
   .timeline::before { display: none; }
   .tl-row { grid-template-columns: 1fr; grid-template-rows: auto auto; gap: 0.4rem; }

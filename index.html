@@ -75,6 +75,11 @@
         <span class="cd-num" id="cd-s">--</span>
         <span class="cd-unit-label">秒</span>
       </div>
+      <div class="cd-colon cd-dot">.</div>
+      <div class="cd-unit cd-unit-ms">
+        <span class="cd-num" id="cd-ms">--</span>
+        <span class="cd-unit-label">毫秒</span>
+      </div>
     </div>
     <div class="cd-note">2026 年 7 月 23 日 13:50 · 桃園國際機場出發</div>
   </div>
@@ -447,21 +452,35 @@
 // AOS
 AOS.init({ duration: 680, once: true, offset: 70, easing: 'ease-out-quart' });
 
-// ── Countdown ──
+// ── Countdown (requestAnimationFrame for smooth ms) ──
 const TARGET = new Date('2026-07-23T13:50:00');
-function pad(n) { return String(Math.max(0, n)).padStart(2, '0'); }
+const cdD  = document.getElementById('cd-d');
+const cdH  = document.getElementById('cd-h');
+const cdM  = document.getElementById('cd-m');
+const cdS  = document.getElementById('cd-s');
+const cdMs = document.getElementById('cd-ms');
+function pad2(n) { return String(Math.max(0, n)).padStart(2, '0'); }
+function pad3(n) { return String(Math.max(0, n)).padStart(3, '0'); }
+
+let prevS = -1;
 function tick() {
   const diff = TARGET - Date.now();
   if (diff <= 0) {
-    ['cd-d','cd-h','cd-m','cd-s'].forEach(id => document.getElementById(id).textContent = '00');
+    [cdD, cdH, cdM, cdS, cdMs].forEach(el => el.textContent = '00');
     return;
   }
-  document.getElementById('cd-d').textContent = pad(Math.floor(diff / 86400000));
-  document.getElementById('cd-h').textContent = pad(Math.floor((diff % 86400000) / 3600000));
-  document.getElementById('cd-m').textContent = pad(Math.floor((diff % 3600000) / 60000));
-  document.getElementById('cd-s').textContent = pad(Math.floor((diff % 60000) / 1000));
+  const s = Math.floor(diff / 1000);
+  if (s !== prevS) {
+    cdD.textContent = pad2(Math.floor(diff / 86400000));
+    cdH.textContent = pad2(Math.floor((diff % 86400000) / 3600000));
+    cdM.textContent = pad2(Math.floor((diff % 3600000)  / 60000));
+    cdS.textContent = pad2(s % 60);
+    prevS = s;
+  }
+  cdMs.textContent = pad3(diff % 1000);
+  requestAnimationFrame(tick);
 }
-tick(); setInterval(tick, 1000);
+requestAnimationFrame(tick);
 
 // ── Navbar scroll ──
 const nav = document.getElementById('nav');
