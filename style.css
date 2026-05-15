@@ -426,10 +426,14 @@ h2.s-title {
   overflow: hidden;
 }
 .hotel-cover-1 {
-  background: linear-gradient(155deg, #0d3b53 0%, #1a7399 45%, #26c5d9 100%);
+  background:
+    linear-gradient(155deg, rgba(13,59,83,0.65) 0%, rgba(26,115,153,0.45) 100%),
+    url('https://manhattanpattaya.com/wp-content/uploads/2021/11/NUT_3520-HDR-copy-800x533.jpg') center/cover no-repeat;
 }
 .hotel-cover-2 {
-  background: linear-gradient(155deg, #200048 0%, #6b21a8 50%, #a855f7 100%);
+  background:
+    linear-gradient(155deg, rgba(32,0,72,0.65) 0%, rgba(107,33,168,0.45) 100%),
+    url('https://www.myclubmarriott.com/assets/uploads/property/property_image1610713619_357982.jpg') center/cover no-repeat;
 }
 .hotel-big-icon {
   position: absolute; right: 1.5rem; top: 1rem;
